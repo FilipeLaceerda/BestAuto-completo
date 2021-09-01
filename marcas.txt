@@ -1,0 +1,31 @@
+empresas:
+    image: marcas
+    build: ./dockerfiles/servicos/
+    ports: 
+        - "5001:5001"
+    expose:
+      - '5001'
+    volumes:
+      - './empresas:/servico'
+    command: python3 servico.py
+    network_mode: bridge   
+  comentarios:
+    image: marcas
+    build: ./dockerfiles/servicos/
+    hostname: comentarios
+    expose:
+      - '5002'
+    volumes:
+      - './comentarios:/servico'
+    command: python3 servico.py
+    network_mode: bridge   
+  likes:
+    image: marcas
+    build: ./dockerfiles/servicos/
+    hostname: likes
+    expose:
+      - '5003'
+    volumes:
+      - './likes:/servico'
+    command: python3 servico.py
+    network_mode: bridge   	

@@ -1,0 +1,71 @@
+version: "3"
+services:
+  empresas:
+    build: ./empresas
+    expose:
+      - '5001'
+    ports: 
+      - "5001:5001"
+    volumes:
+        - ./empresas:/code   
+    network_mode: bridge   
+  likes:
+    build: ./likes
+    expose:
+      - '5003'
+    ports: 
+      - "5003:5003"
+    volumes:
+        - ./likes:/code   
+    network_mode: bridge
+  feeds:
+    build: ./feeds
+    expose:
+      - '5002'
+    ports: 
+      - "5002:5002"
+    volumes:
+        - ./feeds:/code   
+    network_mode: bridge
+  comentarios:
+    build: ./comentarios
+    expose:
+      - '5004'
+    ports: 
+      - "5004:5004"
+    volumes:
+        - ./comentarios:/code   
+    network_mode: bridge
+  agendamento:
+    build: ./agendamento
+    expose:
+      - '5005'
+    ports: 
+      - "5005:5005"
+    volumes:
+        - ./agendamento:/code   
+    network_mode: bridge
+  bancodados:
+    image: mysql:5.7
+    hostname: mysql
+    volumes:
+      - ./bd:/var/lib/mysql
+    restart: always
+
+    environment:
+      MYSQL_ROOT_PASSWORD: m4rc4s
+      MYSQL_DATABASE: marcas
+      MYSQL_USER: marcas
+      MYSQL_PASSWORD: m4rc4s
+    ports:
+        - 4000:3306 
+  arquivos:
+    image: arquivos
+    build: ./dockerfiles/nginx/
+    volumes:
+      - './assets/imagens:/usr/share/nginx/html'
+    ports:
+        - "8000:80"
+    expose:
+        - '8000'
+    network_mode: bridge
